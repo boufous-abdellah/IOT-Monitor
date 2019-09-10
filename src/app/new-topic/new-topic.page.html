@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+          <ion-back-button defaultHref="/topics"></ion-back-button>
+    </ion-buttons>
+    <ion-title>New Topic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-list lines="">
+            <ion-item>
+              <ion-label position="floating">URL</ion-label>
+              <ion-input type="url" formControlName="url"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Port</ion-label>
+              <ion-input type="number" formControlName="port"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Topic</ion-label>
+              <ion-input type="text" formControlName="topic"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Username</ion-label>
+                <ion-input type="text" formControlName="username"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col size-md="6" offset-md="3">
+            <ion-button (click)="onSubmitAddTopic()" color="primary" expand="block" [disabled]="!form.valid">
+              <ion-icon slot="end" name="add"></ion-icon>
+              <ion-label>Add</ion-label>
+            </ion-button>
+          </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+</ion-content>
