@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Register</ion-title>
+    <ion-buttons slot="start">
+          <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
  
@@ -33,8 +36,9 @@
  
     
     <ion-button  class="submit-btn" type="submit"  [disabled]="!validationsForm.valid">Register</ion-button>
+    <!--
     <label class="error-message">{{errorMessage}}</label>
-    <label class="success-message">{{successMessage}}</label>
+    <label class="success-message">{{successMessage}}</label>-->
   </form>
   <p class="go-to-login">Already have an account? <a (click)="goLoginPage()">Try to Log In.</a></p>
 </ion-content>

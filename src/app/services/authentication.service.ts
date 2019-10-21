@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
+import { reject } from 'q';
 
 @Injectable()
 export class AuthenticateService {
@@ -40,5 +41,15 @@ export class AuthenticateService {
 
   userDetails() {
     return firebase.auth().currentUser;
+  }
+
+  resetPassword(email, successcallback, failcallback) {
+    firebase.auth().sendPasswordResetEmail(email).then(() => {
+      console.log('email sent');
+      successcallback();
+  }).catch(() => {
+    failcallback();
+    reject();
+  });
   }
 }

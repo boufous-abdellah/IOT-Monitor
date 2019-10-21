@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: 'new-topic', loadChildren: './new-topic/new-topic.module#NewTopicModule'},
   { path: 'topic-graph/:topickey', loadChildren: './topic-graph/topic-graph.module#TopicGraphPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' }
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule'},
+  { path: 'forget', loadChildren: './forget/forget.module#ForgetPageModule' }
 ];
 
 @NgModule({

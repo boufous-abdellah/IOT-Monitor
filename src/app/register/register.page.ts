@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthenticateService } from '../services/authentication.service';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -55,7 +56,38 @@ export class RegisterPage implements OnInit {
        console.log(err);
        this.errorMessage = err.message;
        this.successMessage = '';
-     });
+     }).finally(async () => {
+      if (this.errorMessage !== '') {
+      const alerterror = await this.alertCtrl.create({
+        header: 'Error !',
+        message: this.errorMessage,
+        buttons: [
+          {
+            text: 'Okay',
+            role: 'cancel',
+          }
+        ]
+      });
+      await alerterror.present();
+    }
+
+      if (this.successMessage !== '') {
+      const alertsuccess = await this.alertCtrl.create({
+        header: 'Success !',
+        message: this.successMessage,
+        buttons: [
+          {
+            text: 'Okay',
+            handler: () => {
+              this.goLoginPage();
+            },
+          }
+        ]
+      });
+      await alertsuccess.present();
+    }
+
+    });
   }
 
   goLoginPage() {

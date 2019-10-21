@@ -21,7 +21,8 @@ export class TopicsPage implements OnInit {
     }
     this.topicsService.topics().subscribe(results => {
     console.log(results);
-    this.userTopics = results; });
+    this.userTopics = results;
+  });
   }
 
   logout() {

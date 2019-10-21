@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TopicsService } from '../services/topics.service';
 import { Topic } from '../topics/topic.module';
 import { NavController } from '@ionic/angular';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -12,29 +13,16 @@ import { NavController } from '@ionic/angular';
 })
 export class NewTopicPage implements OnInit {
   form: FormGroup;
-  useruid = 'user1';
 
-  constructor(private topicsService: TopicsService, private NavCtrl: NavController) { }
+  constructor(private topicsService: TopicsService, private NavCtrl: NavController, private user: UserService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      url: new FormControl(null, {
+      topicname: new FormControl(null, {
         updateOn: 'change',
         validators: [Validators.required]
       }),
-      port: new FormControl(null, {
-        updateOn: 'change',
-        validators: [Validators.required]
-      }),
-      topic: new FormControl(null, {
-        updateOn: 'change',
-        validators: [Validators.required]
-      }),
-      username: new FormControl(null, {
-        updateOn: 'change',
-        validators: [Validators.required]
-      }),
-      password: new FormControl(null, {
+      description: new FormControl(null, {
         updateOn: 'change',
         validators: [Validators.required]
       })
@@ -42,12 +30,9 @@ export class NewTopicPage implements OnInit {
   }
 
   onSubmitAddTopic() {
-    const topic = new Topic(this.form.value.url,
-      this.form.value.port,
-      this.form.value.topic,
-      this.form.value.username,
-      this.form.value.password,
-      this.useruid);
+    const topic = new Topic(
+      this.form.value.topicname,
+      this.form.value.description);
     this.topicsService.addTopic(topic);
     this.NavCtrl.navigateBack(['/topics']);
     this.form.reset();

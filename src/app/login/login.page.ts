@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 
@@ -29,7 +29,8 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private alertCtrl: AlertController
 
   ) { }
 
@@ -60,8 +61,22 @@ export class LoginPage implements OnInit {
       this.userService.useruid = this.authService.userDetails().uid;
     }, err => {
       this.errorMessage = err.message;
-    });
-  }
+      }).finally(async () => {
+        if (this.errorMessage !== '') {
+        const alert = await this.alertCtrl.create({
+          header: 'Error !',
+          message: this.errorMessage,
+          buttons: [
+            {
+              text: 'Okay',
+              role: 'cancel',
+            }
+          ]
+        });
+        await alert.present();
+      }
+      });
+}
 
   goToRegisterPage() {
     this.navCtrl.navigateForward('/register');

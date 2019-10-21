@@ -21,13 +21,13 @@ export class TopicsService {
   addTopic(topicToAdd: Topic) {
     const user = this.userService.useruid;
 
-    const {url , port, name , username, password} = topicToAdd;
-    const combined = url + '/' + port + '/' + name + '/' + username + '/' + password + '/' + user;
+    const {name, description} = topicToAdd;
+    const combined = 'Topic Name : ' + name + ', Description :' + description + ', Userid :' + user;
 
     this.ref = this.db.list('topics', ref => ref.orderByChild('combined').equalTo(combined));
     const subscription = this.ref.valueChanges().subscribe(resultat => {
       if (resultat.length === 0) {
-        this.ref.push({url , port, name , username, password, useruid: user, combined});
+        this.ref.push({name , description, useruid: user, combined});
         subscription.unsubscribe();
       }
     });
@@ -35,8 +35,8 @@ export class TopicsService {
 
   removeTopic(topic: Topic) {
     const user = this.userService.useruid;
-    const {url , port, name , username, password} = topic;
-    const combined = url + '/' + port + '/' + name + '/' + username + '/' + password + '/' + user;
+    const {name, description} = topic;
+    const combined = 'Topic Name : ' + name + ', Description :' + description + ', Userid :' + user;
     this.ref = this.db.list('topics', ref => ref.orderByChild('combined').equalTo(combined));
     const subscription = this.ref.snapshotChanges().subscribe(results => {
       this.db.list('topics').remove(results[0].key);

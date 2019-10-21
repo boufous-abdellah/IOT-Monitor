@@ -17,7 +17,7 @@ import { UserService } from '../services/user.service';
 export class TopicGraphPage implements OnInit {
   @ViewChild('lineCanvas', {static: false}) lineCanvas: ElementRef;
   subscription: Subscription;
-  topic: Topic = new Topic('', 0, '', '', '', '');
+  topic: Topic = new Topic('', '');
   private lineChart: Chart;
   lineChartdata: Observable<any[]> = null;
   ref: AngularFireList<any[]>;
@@ -50,8 +50,8 @@ export class TopicGraphPage implements OnInit {
       this.subscription = this.topics.topics().subscribe(results => {
         const user = this.userService.useruid;
         this.topic = results[paramMap.get('topickey')];
-        const {url , port, name , username, password} = this.topic;
-        const combined = url + '/' + port + '/' + name + '/' + username + '/' + password + '/' + user;
+        const {name , description } = this.topic;
+        const combined = 'Topic Name : ' + name + ', Description :' + description + ', Userid :' + user;
         console.log(combined);
         this.ref = this.db.list(combined, ref => ref.orderByChild('time').limitToLast(5));
 
