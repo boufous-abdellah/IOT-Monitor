@@ -18,14 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAwdMW0LmIFhxivuF7whHfGLxf9LolZkqo',
-  authDomain: 'iot-monitor-team.firebaseapp.com',
-  databaseURL: 'https://iot-monitor-team.firebaseio.com',
-  projectId: 'iot-monitor-team',
-  storageBucket: 'iot-monitor-team.appspot.com',
-  messagingSenderId: '6414091356',
-  appId: '1:6414091356:web:a38335a8d5c8d6a3a79299',
-  measurementId: 'G-SSDE3DCC5R'
+  //put here your firebase config
 };
 
 import * as firebase from 'firebase';
