@@ -13,15 +13,14 @@ export class AuthenticateService {
      .then(
        res => resolve(res),
        err => reject(err));
-   });
+    }
+    );
   }
 
   loginUser(value) {
    return new Promise<any>((resolve, reject) => {
      firebase.auth().signInWithEmailAndPassword(value.email, value.password)
-     .then(
-       res => resolve(res),
-       err => reject(err));
+     .then(res => resolve(res), err => reject(err));
    });
   }
 
@@ -51,5 +50,13 @@ export class AuthenticateService {
     failcallback();
     reject();
   });
+  }
+
+  sendEmailVerification() {
+    if (firebase.auth().currentUser) {
+      firebase.auth().currentUser.sendEmailVerification();
+    } else {
+      console.log('no Current User');
+    }
   }
 }

@@ -54,13 +54,18 @@ export class LoginPage implements OnInit {
 
   loginUser(value) {
     this.authService.loginUser(value)
-    .then(res => {
+    .then(async res => {
       console.log(res);
+      if (!res.user.emailVerified) {
+        this.errorMessage = 'Please validate your email address. Kindly check your inbox.';
+      } else {
       this.errorMessage = '';
       this.navCtrl.navigateForward('topics');
       this.userService.useruid = this.authService.userDetails().uid;
+      }
     }, err => {
       this.errorMessage = err.message;
+      console.log(err);
       }).finally(async () => {
         if (this.errorMessage !== '') {
         const alert = await this.alertCtrl.create({

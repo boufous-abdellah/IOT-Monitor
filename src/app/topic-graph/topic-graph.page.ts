@@ -17,6 +17,7 @@ import { UserService } from '../services/user.service';
 export class TopicGraphPage implements OnInit {
   @ViewChild('lineCanvas', {static: false}) lineCanvas: ElementRef;
   subscription: Subscription;
+  chartSubscription: Subscription;
   topic: Topic = new Topic('', '');
   private lineChart: Chart;
   lineChartdata: Observable<any[]> = null;
@@ -48,22 +49,31 @@ export class TopicGraphPage implements OnInit {
         return;
       }
       this.subscription = this.topics.topics().subscribe(results => {
+        // the use of topics here is to get the topic name and description
+        // to have the ability to select the data related to it
         const user = this.userService.useruid;
         this.topic = results[paramMap.get('topickey')];
         const {name , description } = this.topic;
         const combined = 'Topic Name : ' + name + ', Description :' + description + ', Userid :' + user;
-        console.log(combined);
-        this.ref = this.db.list(combined, ref => ref.orderByChild('time').limitToLast(5));
 
-        this.ref.valueChanges().subscribe(result => {
-        this.createCharts(result);
-    });
+        console.log(combined);
+
+        this.ref = this.db.list(combined, ref => ref.orderByChild('time').limitToLast(5));
+        // on stocke les donnes dans une liste dont le nom est :
+        // Topic Name : a, Description :a, Userid :zbJyCwFO3aW73FdhFJb4wV5oNi33
+        // voir image : database-test.png
+        this.chartSubscription = this.ref.valueChanges().subscribe(result => {
+          this.createCharts(result);
+        });
       });
     });
   }
+
   ionViewWillLeave() {
     this.subscription.unsubscribe();
+    this.chartSubscription.unsubscribe();
   }
+
   createCharts(result: Array<any>) {
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: 'line',

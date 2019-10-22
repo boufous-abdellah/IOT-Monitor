@@ -43,6 +43,7 @@ export class TopicsService {
       subscription.unsubscribe();
     });
   }
+
   // topics useruid
   topics() {
     const user = this.userService.useruid;

@@ -18,13 +18,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAj81Hv2jdWvL6Zfne950stT7oKpdgEG5k',
-  authDomain: 'iot-monitor-18e22.firebaseapp.com',
-  databaseURL: 'https://iot-monitor-18e22.firebaseio.com',
-  projectId: 'iot-monitor-18e22',
-  storageBucket: '',
-  messagingSenderId: '551806578646',
-  appId: '1:551806578646:web:22db68f1d687f9ac'
+  apiKey: 'AIzaSyAwdMW0LmIFhxivuF7whHfGLxf9LolZkqo',
+  authDomain: 'iot-monitor-team.firebaseapp.com',
+  databaseURL: 'https://iot-monitor-team.firebaseio.com',
+  projectId: 'iot-monitor-team',
+  storageBucket: 'iot-monitor-team.appspot.com',
+  messagingSenderId: '6414091356',
+  appId: '1:6414091356:web:a38335a8d5c8d6a3a79299',
+  measurementId: 'G-SSDE3DCC5R'
 };
 
 import * as firebase from 'firebase';
